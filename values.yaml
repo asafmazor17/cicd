@@ -1,0 +1,10 @@
+pods:
+  image: asafmazor/cicd
+  tag: latest
+  name: project:cicd
+deployment:
+  name: asaf-deployment
+service:
+  type: NodePort
+  port: 80
+  target-port: 8080

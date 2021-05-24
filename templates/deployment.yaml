@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+spec:
+  selector:
+    matchLabels:
+      project: cicd
+  template:
+    metadata:
+      labels:
+        project: cicd
+    spec:
+      containers:
+      - name: {{ .Values.pods.name }}
+        image: {{ .Values.pods.image }}
+        tag: {{ .Values.pods.tag }}
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.dbdeployment.name }}
+spec:
+  selector:
+    matchLabels:
+      project: cicd
+  template:
+    metadata:
+      labels:
+        project: cicd
+    spec:
+      containers:
+      - name: {{ .Values.dbdeployment.podname }}
+        image: {{ .Values.dbdeployment.image }}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: 1
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: true
+        - name: MYSQL_USER
+          value: petclinic
+        - name: MYSQL_PASSWORD
+          value: petclinic
+        - name: MYSQL_DATABASE
+          value: petclinic

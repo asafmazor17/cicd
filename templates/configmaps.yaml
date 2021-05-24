@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap
+data:
+  name: { { .Values.deployment.name } }
+  image: { { .Values.pods.image } }
+  tag: { { .Values.pods.tag } }
